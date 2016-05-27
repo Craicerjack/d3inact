@@ -1,0 +1,37 @@
+#viz {
+    width: 100%;
+    height: 500px;
+}
+#header {
+    text-align: center;
+}
+text {
+    font-size: 10px;
+}
+g > text.active {
+    font-size: 40px;
+}
+circle {
+    fill: pink;
+    stroke: black;
+    stroke-width: 1px;
+}
+circle.active {
+    fill: red;
+}
+circle.inactive {
+    fill: gray;
+}
+button:active, .active {
+    border-radius: 5px;
+    background: black;
+    color: white;
+}
+button {
+    width: 6%;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 5px;
+}
+
+
