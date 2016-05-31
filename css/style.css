@@ -1,6 +1,6 @@
 #viz {
     width: 100%;
-    height: 500px;
+    height: 300px;
 }
 #header {
     text-align: center;
@@ -33,5 +33,19 @@ button {
     padding: 1em;
     border-radius: 5px;
 }
-
+#modal {
+    z-index:1;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+}
+tr {
+    border: 1px gray solid;
+}
+td {
+    font-size: 10px;
+}
+td.data {
+    font-weight: 900;
+  }
 

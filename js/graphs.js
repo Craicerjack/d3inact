@@ -42,7 +42,6 @@ function clicked() {
             el.tweetTime = new Date(el.timestamp);
         })
         var filteredData = incomingData.filter(function(el) { 
-            console.log(el.impact , " -  test  ");
             return el.impact > 2
         });
         d3.selectAll("circle")
@@ -108,5 +107,5 @@ testDiv.append("svg")
         .attr("y", function(d) { return 100 - yScale(d); })
 
 
-d3.json("js/tweets.json",function(data) { vizTweets(data); });
+d3.json("data/tweets.json",function(data) { vizTweets(data); });
 
