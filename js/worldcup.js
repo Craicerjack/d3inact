@@ -34,7 +34,7 @@ var WC = {
             d3.select("body")
                 .append("div")
                 .attr("id", "modal")
-                .html(data);
+                .html(data);    
         });
         d3.select('svg')
             .append('text')

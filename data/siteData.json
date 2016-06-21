@@ -1,0 +1,46 @@
+{
+    "sites": [{}],
+    "records": [{
+        "site": "all",
+        "date": "2013",
+        "renewable": 20466420,
+        "green": 28554932,
+        "emissions": 127434,
+        "total": 370481724
+    }, {
+        "site": "all",
+        "date": "2014",
+        "renewable": 22616466,
+        "green": 28582012,
+        "emissions": 121427,
+        "total": 360979737
+    }, {
+        "site": "all",
+        "date": "2015",
+        "renewable": 21253542,
+        "green": 55893025,
+        "emissions": 118327,
+        "total": 369922522
+    }, {
+        "site": "Galway",
+        "date": "2013",
+        "renewable": 3038587,
+        "green": 7638878,
+        "emissions": 14322,
+        "total": 49086592
+    }, {
+        "site": "Galway",
+        "date": "2014",
+        "renewable": 2688391,
+        "green": 9125798,
+        "emissions": 13782,
+        "total": 47204274
+    }, {
+        "site": "Galway",
+        "date": "2015",
+        "renewable": 2688391,
+        "green": 9125798,
+        "emissions": 13359,
+        "total": 45672129
+    }]
+}

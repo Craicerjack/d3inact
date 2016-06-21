@@ -76,13 +76,15 @@ function lineChart(data) {
     // Draw a Circle and draw a line between points //
     drawCircles(svg, "circle.tweets", data, "tweets", xScale, yScale, "blue");
     var tweetLine = createLine(xScale, yScale, "tweets");
+    drawLine(svg, tweetLine, data, "red");
+    tweetLine.interpolate("basis");
     drawLine(svg, tweetLine, data, "blue");
 
     drawCircles(svg, "circle.retweets", data, "retweets", xScale, yScale, "lightblue");
-    drawLine(svg, createLine(xScale, yScale, "retweets"), data, "lightblue");
+    drawLine(svg, createLine(xScale, yScale, "retweets").interpolate("step"), data, "lightblue");
 
     drawCircles(svg, "circle.favorites", data, "favorites", xScale, yScale, "aqua");
-    drawLine(svg, createLine(xScale, yScale, "favorites"), data, "aqua");
+    drawLine(svg, createLine(xScale, yScale, "favorites").interpolate("cardinal"), data, "aqua");
     
 }
 

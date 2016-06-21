@@ -5,35 +5,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>D3 inact</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/map.css">
     <link type="text/css" rel="stylesheet" href="css/navbar.css" />
-
     <link rel="author" href="humans.txt">
 </head>
-<style>
-  svg {
-    height: 500px;
-    width: 500px;
-    border: 1px solid gray;
-  }
-line {
-  shape-rendering: crispEdges;
-  stroke: #000000;
-  }
-
-line.minor  {
-  stroke: #777777;
-  stroke-dasharray: 2,2;
-}
-
-path.domain {
-  fill: none;
-  stroke: black;
-}
-
-</style>
 <body>
-   <div id="crouton">
+    <div id="crouton">
         <ul>
             <li><a href="index.html">home</a></li>
             <li><a href="worldcup.html">worldcup</a></li>
@@ -44,18 +21,17 @@ path.domain {
             <li><a href="map3.html">map3</a></li>
         </ul>
     </div>
-    <div class="row">
-        <div id="chartcontainer">
-            <svg style="width:500px;height:500px;"></svg>
-        </div>
-        <div id="tweets">
-            <svg style="width:500px;height:500px;"></svg>
-        </div>
+    <div id="map">
+        <svg style="width:500px;height:500px;border:1px lightgray solid;"></svg>
+    </div>
+    <div id="tweets">
+        <svg style="width:500px;height:500px;border:1px lightgray solid;"></svg>
     </div>
 
-
-
     <script src="js/d3.min.js"></script>
-    <script src="js/charts.js"></script>
+    <script src="js/queue.js"></script>
+    <script src="js/hexbin.min.js"></script>
+    <script src="js/d3.geo.projection.min.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>

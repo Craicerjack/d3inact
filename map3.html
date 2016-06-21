@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+h1 {
+  position: absolute;
+  top: 500px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+  width: 960px;
+}
+
+</style>
+<div id="crouton">
+        <ul>
+            <li><a href="index.html">home</a></li>
+            <li><a href="worldcup.html">worldcup</a></li>
+            <li><a href="charts.html">charts</a></li>
+            <li><a href="steam.html">steam</a></li>
+            <li><a href="map.html">map</a></li>
+            <li><a href="map2.html">map2</a></li>
+            <li><a href="map3.html">map3</a></li>
+        </ul>
+    </div>
+<h1></h1>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/queue.v1.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="js/jquery-2.2.0.min.js"></script>
+<script>
+    var width = 960,
+        height = 500;
+
+    var sitesArray = ["Costa Rica", "Ireland", "Netherlands", "Puerto Rico", "United States"];
+    var sites = [];
+    var projection = d3.geo.orthographic()
+          .clipAngle(90)
+          .precision(0.6);
+
+    var canvas = d3.select("body").append("canvas")
+        .attr("width", width)
+        .attr("height", height);
+
+    var c = canvas.node().getContext("2d");
+
+    var path = d3.geo.path()
+        .projection(projection)
+        .context(c);
+
+    var title = d3.select("h1");
+
+    queue()
+        .defer(d3.json, "data/world.json")
+        .defer(d3.json, "data/siteData.json")
+        .await(ready);
+
+    function ready(error, world, names) {
+      if (error) throw error;
+
+      var globe = {type: "Sphere"},
+          land = topojson.feature(world, world.objects.land),
+          countries = topojson.feature(world, world.objects.countries).features,
+          borders = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }),
+          i = -1;
+          countries.forEach(function(country) {
+            if ($.inArray(country.properties.name, sitesArray) > -1 ) {
+                return sites.push(country);
+            }
+          });
+          var n = sites.length;
+
+      (function transition() {
+        d3.transition()
+            .duration(1250)
+            .each("start", function() {
+              title.text(sites[i = (i + 1) % n].properties.name);
+            })
+            .tween("rotate", function() {
+              var p = d3.geo.centroid(sites[i]),
+                  r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
+              return function(t) {
+                projection.rotate(r(t));
+                c.clearRect(0, 0, width, height);
+                c.strokeStyle = "#000", c.lineWidth = .5, c.beginPath(), path(land), c.stroke();
+                c.fillStyle   = "#f00", c.beginPath(), path(sites[i]), c.fill();
+                c.strokeStyle = "#000", c.lineWidth = .5, c.beginPath(), path(borders), c.stroke();
+                c.strokeStyle = "#000", c.lineWidth = 2, c.beginPath(), path(globe), c.stroke();
+              };
+            })
+          .transition()
+            .each("end", transition);
+      })();
+    }
+</script>
+

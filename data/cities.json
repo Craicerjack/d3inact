@@ -1,0 +1,19 @@
+{
+    "cities": {
+        "type": "GeometryCollection",
+        "geometries": [
+            {"type": "Point","coordinates": [37.474824, -121.933360],"properties": {"name": "Fremont"}}, 
+            {"type": "Point","coordinates": [37.421093, -121.953099],"properties": {"name": "San Jose"}}, 
+            {"type": "Point","coordinates": [34.456208, -118.582789],"properties": {"name": "Valencia"}}, 
+            {"type": "Point","coordinates": [39.292029, -86.753366],"properties": {"name": "Spencer"}}, 
+            {"type": "Point","coordinates": [18.458428, -66.268693],"properties": {"name": "Dorado"}}, 
+            {"type": "Point","coordinates": [51.896847, -8.486396],"properties": {"name": "Cork"}}, 
+            {"type": "Point","coordinates": [53.270553, -9.053733],"properties": {"name": "Galway"}}, 
+            {"type": "Point","coordinates": [52.355835, -7.690230],"properties": {"name": "Clonmel"}}, 
+            {"type": "Point","coordinates": [9.998077, -84.120053],"properties": {"name": "Heredia"}}, 
+            {"type": "Point","coordinates": [9.907251, -83.674090],"properties": {"name": "Coyol"}}
+        ]
+    }
+}
+
+
