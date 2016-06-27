@@ -5,7 +5,7 @@ var width = 1200,
 
 var sitesArray = ["Costa Rica", "Ireland", "Netherlands", "Puerto Rico", "United States"];
 var sites = [];
-
+var sclae, translate, visibleArea, invisibleArea;
 var projection = d3.geo.orthographic().clipAngle(90).precision(0.6);
 var canvas = d3.select("body").append("canvas").attr("width", width).attr("height", height);
 var context = canvas.node().getContext("2d");
@@ -13,10 +13,11 @@ var path = d3.geo.path().projection(projection).context(context);
 var title = d3.select("h1");
 
 var zoom = d3.behavior.zoom()
-        .translate(projection.translate())
-        .scale(projection.scale())
-        .scaleExtent([projection.scale()/5, projection.scale()*5])
-        .on('zoom', zoomed);
+        .scaleExtent([1,8]).on('zoom', zoomed);
+        // .translate(projection.translate())
+        // .scale(projection.scale())
+        // .scaleExtent([projection.scale()/5, projection.scale()*5])
+        // .on('zoom', zoomed);
 
 
 var i = -1, n, globe, land, countries, borders;
@@ -26,33 +27,43 @@ queue()
     .defer(d3.json, "data/siteData.json")
     .await(ready);
 
-function zoomed(d) {
-    console.log('zoomed ' , d);
-    projection.translate(d3.event.translate).scale(d3.event.scale);
+function zoomed() {
     translate = zoom.translate();
-
-    var zTranslate = zoom.translate();
-    var zScale = zoom.scale();
-    console.log(zTranslate, zScale, d);
-    context.clearRect(0, 0, width, height);
+    scale = zoom.scale();
     context.beginPath();
-    path(d);
+    path(sites[i]);
     context.stroke();
+    console.log('zoomed  d- ', d);
+
+    // var d = d || sites[i];
+    // console.log('zoomed ' , d);
+    // console.log('zoom' , zoom);
+    // projection.translate(d3.event.translate).scale(d3.event.scale);
+    // var zTranslate = zoom.translate();
+    // var zScale = zoom.scale();
+    // console.log(zTranslate, zScale, d);
+    // context.clearRect(0, 0, width, height);
 }
 
 function zoomTo(location, scale) {
+    console.log('scale ' , scale);  
+    console.log('location ' , location);
+    console.log('zoomTo ');
     var point = projection(location);
     return zoom.translate([width - point[0] * scale, height - point[1] * scale]).scale(scale);
 }
 
 function jump() {
+    var t = d3.select(this);
     context.clearRect(0, 0, width, height);
-    context.strokeStyle = "#000", context.lineWidth = .5, context.beginPath(), path(sites[i]), context.stroke();
+    context.strokeStyle = "#f00", context.lineWidth = .5, context.beginPath(), path(sites[i]), context.stroke();
     context.fillStyle   = "#f00", context.beginPath(), path(sites[i]), context.fill();
-    console.log('context ' , context);
+    t = t.transition().call(zoomTo(sites[i], 10).event);
+
 
     canvas.transition()
         .duration(5000)
+        // .call(zoomTo(sites[i], 10).event)
         .each("end", transition);
 }
 

@@ -10,6 +10,25 @@ h1 {
   text-align: center;
   width: 960px;
 }
+.country {
+  fill: #b8b8b8;
+  stroke: #fff;
+  stroke-width: .5px;
+  stroke-linejoin: round;
+}
+
+.graticule {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+  stroke-width: .5px;
+}
+
+.graticule-outline {
+  fill: none;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
 
 </style>
 <div id="crouton">
@@ -24,6 +43,7 @@ h1 {
         </ul>
     </div>
 <h1></h1>
+<div id="content"></div>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/queue.v1.min.js"></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
