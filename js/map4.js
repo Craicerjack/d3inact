@@ -58,13 +58,13 @@ function ready(error, world, names) {
         .insert('path', '.graticule')
         .attr("class", "country")
         .attr('id', function(d) { return "country"+d.id; })
-        .attr('d', path)
-        .on('zoom', highlightCountry);
+        .attr('d', path);
 
     site = g.selectAll(".site")
         .data(sites)
         .enter().insert("path", ".graticule")
         .attr("class", "site")
+        .attr('id', function(d) { return "site"+d.id; })
         .attr("d", path)
         .on('zoom', highlightCountry);
 
@@ -72,8 +72,9 @@ function ready(error, world, names) {
 }
 
 function changeSite() {
-    console.log('changeSite()', i, " n - ")
-    if (++i >= n) i = 0;
+
+    if (++i >= n ) i = 0;
+    console.log('changeSite after if', i, " n - ", n)
     // title.text(sites[i].properties.name);
     site.transition()
         .style("fill", function(d, j) { return j === i ? "red" : "#b8b8b8"; })
@@ -99,46 +100,41 @@ function changeSite() {
 
 function zoomOut() {
     console.log('zoomOut ', i, n);
+    var d = sites[i];
+    // i += i;
     var x, y, k;
     x = width / 2;
     y = height / 2;
     k = 1;
     centered = null;
-    i ++;
-
-    site.transition()
-        .duration(2000)
-        .selectAll(['.country', '.site'])
-        .style('fill', '#b8b8b8')
-        .style('stroke-width', '.5px')
-        .transition()
-        .delay(2000)
-        .each('end', changeSite);
-    
-     d3.transition()
-        .duration(2000)
-        .selectAll('.graticule-outline')
-        .style('fill', 'none')
-        .style('stroke-width', '0')
-    
-     d3.transition()
-        .duration(2000).selectAll('.graticule')
-        .style('stroke-opacity', '0.3');
 
     g.transition()
-        .duration(2000)  
-        .selectAll('.country')
-        .style('fill', '#b8b8b8');
+        .delay(1000)
+        .duration(1000)
+        .selectAll(['.country'])
+        .style('fill', '#b8b8b8')
+        .style('stroke-width', '.5px');
+    
+     d3.transition()
+        .delay(1000)
+        .duration(1000)
+        .selectAll('.graticule-outline')
+        .style('fill', 'none')
+        .style('stroke-width', '0');
+    
+     d3.transition()
+        .delay(1000)
+        .duration(1000).selectAll('.graticule')
+        .style('stroke-opacity', '0.3');
 
     g.transition()
         .duration(2000)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-        .style('fill', '#000')
-        .selectAll('.site')
+        .select('#site'+d.id)
+        .style('fill', 'aqua')
         .style("stroke-width", 1.5 / k + "px")
-        .transition()
-        .delay(2000)
         .each('end', changeSite);
+        
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -146,7 +142,9 @@ function zoomOut() {
 ////////////////////////////////////////////////////////////////////////
 function highlightCountry() {
     var d = sites[i];
+    console.log('d ' , d);
     var x, y, k;
+
 
     var centroid = path.centroid(d);
     x = centroid[0];
@@ -156,14 +154,11 @@ function highlightCountry() {
 
     g.selectAll("path").classed("active", centered && function(d) { return d === centered; });
 
-    site.transition()
+    g.transition()
         .duration(2000)
-        .selectAll(['.country', '.site'])
+        .selectAll(['.country'])
         .style('fill', '#fff')
-        .style('stroke-width', '0')
-        .transition()
-        .delay(2000)
-        .each('end', zoomOut);
+        .style('stroke-width', '0');
     
     d3.transition()
         .duration(2000)
@@ -176,17 +171,13 @@ function highlightCountry() {
         .style('stroke-opacity', '0');
 
     g.transition()
-        .duration(2000)  
-        .select('#country'+d.id)
-        .style('fill', '#000')
-        .each('end', zoomOut);  
-
-    g.transition()
         .duration(2000)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
         .style('fill', '#000')
-        .selectAll('.site')
-        .style("stroke-width", 1.5 / k + "px");
+        .select('#site'+d.id)
+        .style("stroke-width", 1.5 / k + "px")
+        .style("stroke", "pink")
+        .each('end', zoomOut);
 }
 
 ////////////////////////////////////////////////////////////////////////
